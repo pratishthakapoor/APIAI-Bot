@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Builder.Internals.Fibers;
 using Microsoft.Bot.Builder.Scorables.Internals;
 using Microsoft.Bot.Connector;
+using ServiceChatApp_APIAI_.Dialogs;
 
 namespace ServiceChatApp_APIAI_
 {
     internal class ChatResetScorable : ScorableBase<IActivity, string, double>
     {
         private IDialogTask dialogTask;
+        private IDialogContext context;
 
         public ChatResetScorable(IDialogTask dialogTask)
         {
@@ -34,7 +37,21 @@ namespace ServiceChatApp_APIAI_
 
         protected override async Task PostAsync(IActivity item, string state, CancellationToken token)
         {
+            var message = item as IMessageActivity;
+
             this.dialogTask.Reset();
+
+            IDialog<IMessageActivity> interruption = null;
+
+            if(message != null)
+            {
+                var incomingMessage = message.Text.ToLowerInvariant();
+                var messageToSend = "Chat been restarted.....";
+                var commonResponseDialog = new RootDialog(messageToSend);
+                interruption = commonResponseDialog.Void<object, IMessageActivity>();
+                this.dialogTask.Call(interruption, null);
+                await dialogTask.PollAsync(token);
+            }
         }
 
         protected override async Task<string> PrepareAsync(IActivity item, CancellationToken token)

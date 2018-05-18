@@ -13,6 +13,19 @@ namespace ServiceChatApp_APIAI_.Dialogs
     public class RootDialog : IDialog<object>
     {
         string retry_response = API_AI_Logger.API_Response("retry");
+        private string messageToSend;
+        IDialogContext context;
+
+        public RootDialog(string messageToSend)
+        {
+            this.messageToSend = messageToSend;
+            context.PostAsync(messageToSend);
+            MenuOption(context);
+        }
+
+        public RootDialog()
+        {
+        }
 
         public Task StartAsync(IDialogContext context)
         {
@@ -54,15 +67,21 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             else
             {
-                PromptDialog.Text(
-                context,
-                resume: MenuOption,
-                prompt: "I can \n \n 1. Raise an incident ticket. \n \n 2. Check the status of previous raise ticket.",
-                retry: "Please try agin, as some problem occured");
+                MenuOption(context);
+                
             }
             
 
             //context.Wait(MessageReceivedAsync);
+        }
+
+        internal void MenuOption(IDialogContext context)
+        {
+            PromptDialog.Text(
+                context,
+                resume: MenuOption,
+                prompt: "I can \n \n 1. Raise an incident ticket. \n \n 2. Check the status of previous raise ticket.",
+                retry: "Please try agin, as some problem occured");
         }
 
         private void NextCall(IDialogContext context)
@@ -171,10 +190,10 @@ namespace ServiceChatApp_APIAI_.Dialogs
             string menu_response = API_AI_Logger.API_Response(res);
 
             await context.PostAsync(menu_response);
-            context.Call(child: new TicketModel(), resume: childDialogcomplete);
+            context.Call(child: new TicketModel(), resume: ChildDialogcomplete);
         }
 
-        private async Task childDialogcomplete(IDialogContext context, IAwaitable<object> result)
+        private async Task ChildDialogcomplete(IDialogContext context, IAwaitable<object> result)
         {
             context.Done(this);
         }

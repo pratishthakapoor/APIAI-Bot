@@ -44,7 +44,7 @@ namespace ServiceChatApp_APIAI_
             });
         }
 
-        private void RegisterBotModules()
+        /*private void RegisterBotModules()
         {
             Conversation.UpdateContainer(
                 builder =>
@@ -52,7 +52,7 @@ namespace ServiceChatApp_APIAI_
                     builder.RegisterModule(new ReflectionSurrogateModule());
                     builder.RegisterModule<GlobalMessageHandler>();
 
-                    /*var store = new TableBotDataStore(ConfigurationManager.AppSettings["AzureWebJobsStorage"]);
+                    var store = new TableBotDataStore(ConfigurationManager.AppSettings["AzureWebJobsStorage"]);
 
                     builder.Register(c => store)
                             .Keyed<IBotDataStore<BotData>>(AzureModule.Key_DataStore)
@@ -62,8 +62,8 @@ namespace ServiceChatApp_APIAI_
                     builder.Register(c => new CachingBotDataStore(store, CachingBotDataStoreConsistencyPolicy.ETagBasedConsistency))
                             .As<IBotDataStore<BotData>>()
                             .AsSelf()
-                            .InstancePerLifetimeScope();*/
+                            .InstancePerLifetimeScope();
                 });
-        }
+        }*/
     }
 }
