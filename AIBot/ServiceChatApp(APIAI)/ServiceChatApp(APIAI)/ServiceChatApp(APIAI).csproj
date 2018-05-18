@@ -51,8 +51,8 @@
     <Reference Include="ApiAiSDK, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ApiAiSDK.1.6.5\lib\net35\ApiAiSDK.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Chronic, Version=0.3.2.0, Culture=neutral, PublicKeyToken=3bd1f1ef638b0d3c, processorArchitecture=MSIL">
       <HintPath>..\packages\Chronic.Signed.0.3.2\lib\net40\Chronic.dll</HintPath>
@@ -162,10 +162,12 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\Logger.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
-    <Compile Include="Dialogs\ScorableDialog\ChatResetScorable.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IscorableRegisterModule.cs" />
+    <Compile Include="Model\ChatResetScorable.cs" />
+    <Compile Include="Model\GlobalMessageHandler.cs" />
     <Compile Include="Internals\Constants.cs" />
     <Compile Include="KeyPhraseExtraction\Document.cs" />
     <Compile Include="KeyPhraseExtraction\DocumentError.cs" />
@@ -184,7 +186,6 @@
     <Compile Include="KeyPhraseExtraction\KeyPhrasesResponse.cs" />
     <Compile Include="KeyPhraseExtraction\TextClient.cs" />
     <Compile Include="KeyPhraseExtraction\TextRequest.cs" />
-    <Compile Include="Model\GlobalMessageHandler.cs" />
     <Compile Include="Model\TicketModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -198,6 +199,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dialogs\ScorableDialog\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

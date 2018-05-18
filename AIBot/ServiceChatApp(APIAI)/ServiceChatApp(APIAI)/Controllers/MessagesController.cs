@@ -47,7 +47,7 @@ namespace ServiceChatApp_APIAI_
                 // Handle conversation state changes, like members being added and removed
                 // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
                 // Not available in all channels
-                IConversationUpdateActivity conversationUpdateActivity = message as IConversationUpdateActivity;
+                  IConversationUpdateActivity conversationUpdateActivity = message as IConversationUpdateActivity;
                 //IMessageActivity messageActivity = message as IMessageActivity;
                 if (conversationUpdateActivity != null)
                 {
@@ -56,8 +56,6 @@ namespace ServiceChatApp_APIAI_
                     {
                         if (memeber.Id == conversationUpdateActivity.Recipient.Id)
                         {
-                            /* var reply = ((Activity)conversationUpdateActivity).CreateReply($"Welcome, to Service Chat App");
-                             await connector.Conversations.ReplyToActivityAsync(reply);*/
                             Activity reply = ((Activity)conversationUpdateActivity).CreateReply($"Welcome, to Service ChatBot");
 
                             AdaptiveCard adaptiveCard = new AdaptiveCard();
@@ -84,18 +82,6 @@ namespace ServiceChatApp_APIAI_
                                 Color = TextColor.Accent,
                                 IsSubtle = true
                             });
-
-                            // Add text to start the conversation
-                           /* adaptiveCard.Body.Add(new TextBlock()
-                            {
-                                Text = "1. I can raise a incident for you \n \n. 2. I can show the status of the ticket raised by you ",
-                                Size = TextSize.Medium,
-                                Weight = TextWeight.Lighter,
-                                MaxLines = 2,
-                                Wrap = true,
-                                Color = TextColor.Dark,
-                                IsSubtle = true
-                            });*/
 
                             //Create an attachment for the adaptive card
                             Attachment attachment = new Attachment()

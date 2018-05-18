@@ -1,24 +1,20 @@
-﻿using Microsoft.Bot.Builder.Dialogs;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Builder.Internals.Fibers;
 using Microsoft.Bot.Builder.Scorables.Internals;
 using Microsoft.Bot.Connector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
 
-namespace ServiceChatApp_APIAI_.Dialogs.ScorableDialog
+namespace ServiceChatApp_APIAI_
 {
-    public class ChatResetScorable : ScorableBase<IActivity, string, double>
+    internal class ChatResetScorable : ScorableBase<IActivity, string, double>
     {
-        private readonly IDialogTask task;
+        private IDialogTask dialogTask;
 
-        public ChatResetScorable(IDialogTask task)
+        public ChatResetScorable(IDialogTask dialogTask)
         {
-            SetField.NotNull(out this.task, nameof(task), task);
+            SetField.NotNull(out this.dialogTask, nameof(dialogTask), dialogTask);
         }
 
         protected override Task DoneAsync(IActivity item, string state, CancellationToken token)
@@ -38,8 +34,7 @@ namespace ServiceChatApp_APIAI_.Dialogs.ScorableDialog
 
         protected override async Task PostAsync(IActivity item, string state, CancellationToken token)
         {
-            this.task.Reset();
-
+            this.dialogTask.Reset();
         }
 
         protected override async Task<string> PrepareAsync(IActivity item, CancellationToken token)

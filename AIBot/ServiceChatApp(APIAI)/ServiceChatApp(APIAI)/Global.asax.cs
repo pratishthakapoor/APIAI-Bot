@@ -5,9 +5,8 @@ using Microsoft.Bot.Builder.Dialogs.Internals;
 using Autofac;
 using Microsoft.Bot.Connector;
 using System.Reflection;
-using Microsoft.Bot.Builder.Internals.Fibers;
-using ServiceChatApp_APIAI_.Model;
 using System;
+using Microsoft.Bot.Builder.Internals.Fibers;
 
 namespace ServiceChatApp_APIAI_
 {
@@ -21,6 +20,9 @@ namespace ServiceChatApp_APIAI_
             builder =>
             {
                 builder.RegisterModule(new AzureModule(Assembly.GetExecutingAssembly()));
+
+                builder.RegisterModule(new ReflectionSurrogateModule());
+                builder.RegisterModule<GlobalMessageHandler>();
 
                 // Bot Storage: Here we register the state storage for your bot. 
                 // Default store: volatile in-memory store - Only for prototyping!
@@ -37,7 +39,7 @@ namespace ServiceChatApp_APIAI_
                     .AsSelf()
                     .SingleInstance();
 
-                RegisterBotModules();
+               // RegisterBotModules();
 
             });
         }
@@ -49,7 +51,19 @@ namespace ServiceChatApp_APIAI_
                 {
                     builder.RegisterModule(new ReflectionSurrogateModule());
                     builder.RegisterModule<GlobalMessageHandler>();
+
+                    /*var store = new TableBotDataStore(ConfigurationManager.AppSettings["AzureWebJobsStorage"]);
+
+                    builder.Register(c => store)
+                            .Keyed<IBotDataStore<BotData>>(AzureModule.Key_DataStore)
+                            .AsSelf()
+                            .SingleInstance();
+
+                    builder.Register(c => new CachingBotDataStore(store, CachingBotDataStoreConsistencyPolicy.ETagBasedConsistency))
+                            .As<IBotDataStore<BotData>>()
+                            .AsSelf()
+                            .InstancePerLifetimeScope();*/
                 });
-         }
+        }
     }
 }
