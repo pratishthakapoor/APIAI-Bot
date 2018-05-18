@@ -38,6 +38,7 @@ namespace ServiceChatApp_APIAI_
                     .SingleInstance();
 
                 RegisterBotModules();
+
             });
         }
 
