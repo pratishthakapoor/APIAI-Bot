@@ -47,7 +47,7 @@ namespace ServiceChatApp_APIAI_
             {
                 var incomingMessage = message.Text.ToLowerInvariant();
                 var messageToSend = "Chat been restarted.....";
-                var commonResponseDialog = new RootDialog(messageToSend);
+                var commonResponseDialog = new CommonnResponseDialog(messageToSend);
                 interruption = commonResponseDialog.Void<object, IMessageActivity>();
                 this.dialogTask.Call(interruption, null);
                 await dialogTask.PollAsync(token);

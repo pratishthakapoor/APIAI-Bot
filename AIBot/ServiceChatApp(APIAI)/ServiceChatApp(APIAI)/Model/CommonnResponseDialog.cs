@@ -1,5 +1,6 @@
 ﻿using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+using ServiceChatApp_APIAI_.Dialogs;
 using System.Threading.Tasks;
 
 namespace ServiceChatApp_APIAI_
@@ -23,6 +24,8 @@ namespace ServiceChatApp_APIAI_
             else
             {
                 await context.PostAsync(messageToSend);
+                RootDialog rootDialog = new RootDialog();
+                rootDialog.MenuOption(context);
             }
             context.Done<object>(null);
         }

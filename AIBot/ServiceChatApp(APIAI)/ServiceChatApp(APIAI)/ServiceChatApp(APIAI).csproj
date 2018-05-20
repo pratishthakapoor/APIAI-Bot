@@ -166,7 +166,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IscorableRegisterModule.cs" />
-    <Compile Include="Model\ChatResetScorable.cs" />
+    <Compile Include="Dialogs\ScorableDialog\ChatResetScorable.cs" />
     <Compile Include="Model\CommonnResponseDialog.cs" />
     <Compile Include="Model\GlobalMessageHandler.cs" />
     <Compile Include="Internals\Constants.cs" />
@@ -201,9 +201,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dialogs\ScorableDialog\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

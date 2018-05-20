@@ -16,23 +16,12 @@ namespace ServiceChatApp_APIAI_.Dialogs
         private string messageToSend;
         IDialogContext context;
 
-        public RootDialog(string messageToSend)
+        /*public RootDialog(string messageToSend)
         {
             this.messageToSend = messageToSend;
            //context.Wait(GlobalMessageHandlerDialog);
            //GlobalMessageHandlerDialog(messageToSend);
-        }
-
-        private async Task GlobalMessageHandlerDialog(string messageToSend)
-        {
-            //await context.PostAsync(messageToSend);
-            MenuOption(context);
-        }
-
-
-        public RootDialog()
-        {
-        }
+        }*/
 
         public Task StartAsync(IDialogContext context)
         {
@@ -86,7 +75,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
         {
             PromptDialog.Text(
                 context,
-                resume: MenuOption,
+                resume: MenuOptionDialog,
                 prompt: "I can \n \n 1. Raise an incident ticket. \n \n 2. Check the status of previous raise ticket.",
                 retry: "Please try agin, as some problem occured");
         }
@@ -190,7 +179,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 await context.PostAsync("Our team cancelled your ticket");
         }
 
-        private async Task MenuOption(IDialogContext context, IAwaitable<string> result)
+        private async Task MenuOptionDialog(IDialogContext context, IAwaitable<string> result)
         {
             var res = await result;
 
