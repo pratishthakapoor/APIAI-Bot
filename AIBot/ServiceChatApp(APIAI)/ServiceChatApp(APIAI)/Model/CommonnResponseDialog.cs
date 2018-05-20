@@ -25,7 +25,8 @@ namespace ServiceChatApp_APIAI_
             {
                 await context.PostAsync(messageToSend);
                 RootDialog rootDialog = new RootDialog();
-                rootDialog.MenuOption(context);
+                rootDialog.PostToUser();
+                //rootDialog.MenuOption(context);
             }
             context.Done<object>(null);
         }
