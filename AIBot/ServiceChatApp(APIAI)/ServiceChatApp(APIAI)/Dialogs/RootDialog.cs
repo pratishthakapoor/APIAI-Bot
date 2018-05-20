@@ -19,9 +19,16 @@ namespace ServiceChatApp_APIAI_.Dialogs
         public RootDialog(string messageToSend)
         {
             this.messageToSend = messageToSend;
-            context.PostAsync(messageToSend);
+           //context.Wait(GlobalMessageHandlerDialog);
+           //GlobalMessageHandlerDialog(messageToSend);
+        }
+
+        private async Task GlobalMessageHandlerDialog(string messageToSend)
+        {
+            //await context.PostAsync(messageToSend);
             MenuOption(context);
         }
+
 
         public RootDialog()
         {
