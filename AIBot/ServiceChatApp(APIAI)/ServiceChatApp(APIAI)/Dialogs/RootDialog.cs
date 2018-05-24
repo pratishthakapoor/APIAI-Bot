@@ -77,11 +77,11 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             else if(action_response.Contains("input.checkstatus"))
             {
-                var confirmation = await result;
+                //var confirmation = await result;
                 PromptDialog.Text(
                     context,
                     resume: DisplayTicketStatus,
-                    prompt: "",
+                    prompt: response,
                     retry: retry_response);
             }
 
@@ -213,9 +213,17 @@ namespace ServiceChatApp_APIAI_.Dialogs
             var res = await result;
 
             string menu_response = API_AI_Logger.API_Response(res);
+            string intent_response = API_AI_Logger.API_Connection_Action(res);
+            if(intent_response.Contains("input.checkstatus"))
+            {
 
-            await context.PostAsync(menu_response);
-            context.Call(child: new TicketModel(), resume: ChildDialogcomplete);
+            }
+            else if(intent_response.Contains("input.raise_ticket_response"))
+            {
+                await context.PostAsync(menu_response);
+                context.Call(child: new TicketModel(), resume: ChildDialogcomplete);
+            }
+            
         }
 
         private async Task ChildDialogcomplete(IDialogContext context, IAwaitable<object> result)
