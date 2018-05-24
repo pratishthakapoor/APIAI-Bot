@@ -48,6 +48,11 @@ namespace ServiceChatApp_APIAI_
                 RootDialog rootDialog = new RootDialog();
                 rootDialog.MenuOption(context);
             }
+
+            else if(response.Text.Contains("no"))
+            {
+                context.Done<object>(null);
+            }
         }
     }
 }
