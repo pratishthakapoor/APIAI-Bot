@@ -81,7 +81,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 PromptDialog.Text(
                     context,
                     resume: DisplayTicketStatus,
-                    prompt: response,
+                    prompt: "",
                     retry: retry_response);
             }
 
@@ -216,7 +216,12 @@ namespace ServiceChatApp_APIAI_.Dialogs
             string intent_response = API_AI_Logger.API_Connection_Action(res);
             if(intent_response.Contains("input.checkstatus"))
             {
-
+                PromptDialog.Text(
+                     context,
+                     resume: DisplayTicketStatus,
+                     prompt: menu_response,
+                     retry: retry_response
+                    );
             }
             else if(intent_response.Contains("input.raise_ticket_response"))
             {
