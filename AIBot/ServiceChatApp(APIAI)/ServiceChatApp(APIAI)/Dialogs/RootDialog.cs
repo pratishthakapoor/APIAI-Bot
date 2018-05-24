@@ -16,6 +16,11 @@ namespace ServiceChatApp_APIAI_.Dialogs
         private string messageToSend;
         IDialogContext context;
 
+        public RootDialog()
+        {
+
+        }
+
         /*public RootDialog(string messageToSend)
         {
             this.messageToSend = messageToSend;
@@ -40,7 +45,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
             // Return our reply to the user
             //await context.PostAsync($"You sent {activity.Text} which was {length} characters");
 
-            string response = API_AI_Logger.API_Response(activity.Text);
+           string response = API_AI_Logger.API_Response(activity.Text);
             string action_response = API_AI_Logger.API_Connection_Action(activity.Text);
 
             await context.PostAsync(response);
@@ -59,6 +64,15 @@ namespace ServiceChatApp_APIAI_.Dialogs
             else if(action_response.Contains("RaiseTicket-repeat"))
             {
 
+            }
+
+            else if(action_response.Contains("RaiseTicket-response"))
+            {
+                PromptDialog.Text(
+                    context,
+                    resume : MenuOptionDialog,
+                    prompt:"",
+                    retry: retry_response);
             }
 
             else

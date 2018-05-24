@@ -24,11 +24,12 @@ namespace ServiceChatApp_APIAI_
             else
             {
                 await context.PostAsync(messageToSend);
-                RootDialog rootDialog = new RootDialog();
+                /*RootDialog rootDialog = new RootDialog();
                 rootDialog.PostToUser();
-                //rootDialog.MenuOption(context);
+                rootDialog.MenuOption(context);*/
             }
-            context.Done<object>(null);
+            //context.Done<object>(null);
+            context.Done(this);
         }
     }
 }
