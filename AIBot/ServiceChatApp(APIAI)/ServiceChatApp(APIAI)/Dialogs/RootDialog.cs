@@ -77,11 +77,10 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             else if(action_response.Contains("input.checkstatus"))
             {
-                //var confirmation = await result;
                 PromptDialog.Text(
                     context,
                     resume: DisplayTicketStatus,
-                    prompt: "",
+                    prompt: "Provide a response",
                     retry: retry_response);
             }
 
@@ -198,7 +197,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
                 string resolveDetails = Logger.RetrieveIncidentCloseDetails(incidentTokenNumber);
                 var replyMessage = context.MakeMessage();
-                Attachment attachment = HeroCardDetails.GetReplyMessage(resolveDetails, incidentTokenNumber, status);
+                Attachment attachment = HeroCardDetails.GetReplyMessage(resolveDetails + "\n" + Logger.RetrieveIncidentResolveDetails(incidentTokenNumber), incidentTokenNumber, status);
                 replyMessage.Attachments = new List<Attachment> { attachment };
                 //await context.PostAsync("Reasons for closing the ticket: " + resolveDetails);
                 await context.PostAsync(replyMessage);

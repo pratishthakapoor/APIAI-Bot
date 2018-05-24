@@ -148,7 +148,7 @@ namespace ServiceChatApp_APIAI_
             {
                 string username = Constants.ServiceNowUserName;
                 string password = Constants.ServiceNowPassword;
-                string URL = Constants.ServiceNowUrl + "?" + "sysparm_query=number=" + Newresponse;
+                string URL = Constants.ServiceNowUrl + GetTablename() +  "?" + "sysparm_query=number=" + Newresponse;
 
                 var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password));
 
@@ -184,7 +184,7 @@ namespace ServiceChatApp_APIAI_
             {
                 string username = Constants.ServiceNowUserName;
                 string password = Constants.ServiceNowPassword;
-                string URL = Constants.ServiceNowUrl + "?" + "sysparm_query=number=" + Detailresponse;
+                string URL = Constants.ServiceNowUrl + GetTablename() + "?" + "sysparm_query=number=" + Detailresponse;
 
                 var auth = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(username + ":" + password));
 
