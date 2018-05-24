@@ -46,7 +46,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
             //await context.PostAsync($"You sent {activity.Text} which was {length} characters");
 
            string response = API_AI_Logger.API_Response(activity.Text);
-            string action_response = API_AI_Logger.API_Connection_Action(activity.Text);
+           string action_response = API_AI_Logger.API_Connection_Action(activity.Text);
 
             await context.PostAsync(response);
 
@@ -72,6 +72,16 @@ namespace ServiceChatApp_APIAI_.Dialogs
                     context,
                     resume : MenuOptionDialog,
                     prompt:"",
+                    retry: retry_response);
+            }
+
+            else if(action_response.Contains("input.checkstatus"))
+            {
+                var confirmation = await result;
+                PromptDialog.Text(
+                    context,
+                    resume: DisplayTicketStatus,
+                    prompt: "",
                     retry: retry_response);
             }
 
