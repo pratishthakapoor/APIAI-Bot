@@ -63,7 +63,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             else if(action_response.Contains("RaiseTicket-repeat"))
             {
-
+                RepeatMessage();
             }
 
             else if(action_response.Contains("RaiseTicket-response"))
@@ -83,6 +83,11 @@ namespace ServiceChatApp_APIAI_.Dialogs
             
 
             //context.Wait(MessageReceivedAsync);
+        }
+
+        private void RepeatMessage()
+        {
+            
         }
 
         internal void MenuOption(IDialogContext context)

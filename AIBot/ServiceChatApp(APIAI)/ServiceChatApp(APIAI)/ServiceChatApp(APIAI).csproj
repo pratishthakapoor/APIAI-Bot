@@ -162,6 +162,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\Logger.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
+    <Compile Include="Model\ChatResponseDialog.cs" />
     <Compile Include="Dialogs\ScorableDialog\MoreRescorable.cs" />
     <Compile Include="Dialogs\ScorableDialog\RaiseTicketScorable.cs" />
     <Compile Include="Global.asax.cs">
