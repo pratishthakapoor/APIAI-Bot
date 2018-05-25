@@ -41,7 +41,7 @@ namespace ServiceChatApp_APIAI_
         {
             var response = await result as Activity;
 
-            if(response.Text.Contains("yes"))
+            if(response.Text.Contains("yes") || response.Text.Contains("ok") || response.Text.Contains("yup"))
             {
                 //this.dialogTask.Reset();
                 await context.PostAsync("The chat has been restarted....");
