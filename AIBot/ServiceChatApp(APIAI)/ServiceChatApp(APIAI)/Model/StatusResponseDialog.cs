@@ -13,14 +13,14 @@ namespace ServiceChatApp_APIAI_.Dialogs.ScorableDialog
             this.incomingMessage = incomingMessage;
         }
 
-        public async Task StartAsync(IDialogContext context)
+        public Task StartAsync(IDialogContext context)
         {
             var response = API_AI_Logger.API_Response(incomingMessage);
 
             RootDialog root = new RootDialog();
             root.StatusResponse(context, response);
 
-            context.Done(this);
+            return Task.CompletedTask;
         }
     }
 }
