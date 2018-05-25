@@ -6,6 +6,7 @@ using Microsoft.Bot.Connector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -56,12 +57,13 @@ namespace ServiceChatApp_APIAI_.Dialogs.ScorableDialog
             if (message != null && !string.IsNullOrWhiteSpace(message.Text))
             {
                 /*API_AI_Logger.API_Connection_Action(message.Text);*/
-                if (message.Text.Equals("Raise Ticket", StringComparison.InvariantCultureIgnoreCase) ||
+                /*if (message.Text.Equals("Raise Ticket", StringComparison.InvariantCultureIgnoreCase) ||
                     message.Text.Equals("I want to raise a ticket", StringComparison.InvariantCultureIgnoreCase) ||
                     message.Text.Equals("Raise ticket for me", StringComparison.InvariantCultureIgnoreCase) ||
                     message.Text.Equals("Raise an ticket for me", StringComparison.InvariantCultureIgnoreCase) ||
-                    message.Text.Equals("Raise a ticket", StringComparison.InvariantCultureIgnoreCase))
+                    message.Text.Equals("Raise a ticket", StringComparison.InvariantCultureIgnoreCase))*/
                 //if(message.Text.Contains(API_AI_Logger.API_Connection_Action(message.Text)))
+                if(Regex.IsMatch(message.Text, @"\bticket\b") || Regex.IsMatch(message.Text, @"\braise\b"))
                 {
                     return message.Text;
                 }

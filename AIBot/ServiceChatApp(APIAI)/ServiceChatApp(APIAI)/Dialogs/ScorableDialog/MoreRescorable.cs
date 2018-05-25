@@ -7,6 +7,7 @@ using ServiceChatApp_APIAI_.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -64,9 +65,10 @@ namespace ServiceChatApp_APIAI_.Dialogs.ScorableDialog
 
             if (message != null && !string.IsNullOrWhiteSpace(message.Text))
             {
-                if (message.Text.Equals("what more", StringComparison.InvariantCultureIgnoreCase) || message.Text.Equals("else", StringComparison.InvariantCultureIgnoreCase) ||
+                /*if (message.Text.Equals("what more", StringComparison.InvariantCultureIgnoreCase) || message.Text.Equals("else", StringComparison.InvariantCultureIgnoreCase) ||
                     message.Text.Equals("i need something more", StringComparison.InvariantCultureIgnoreCase) || message.Text.Equals("i need something else", StringComparison.InvariantCultureIgnoreCase)
-                    || message.Text.Equals("what can you give me more", StringComparison.InvariantCultureIgnoreCase) || message.Text.Equals("i want something more",StringComparison.InvariantCultureIgnoreCase))
+                    || message.Text.Equals("what can you give me more", StringComparison.InvariantCultureIgnoreCase) || message.Text.Equals("i want something more",StringComparison.InvariantCultureIgnoreCase))*/
+                if(Regex.IsMatch(message.Text, @"\bmore\b") || Regex.IsMatch(message.Text, @"\belse\b") || Regex.IsMatch(message.Text, @"\bneed\b"))
                 {
                     return message.Text;
                 }
