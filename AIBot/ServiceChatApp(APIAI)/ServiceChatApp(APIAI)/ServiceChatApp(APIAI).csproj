@@ -164,6 +164,7 @@
     <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Dialogs\ScorableDialog\CheckStatusScorable.cs" />
     <Compile Include="Dialogs\ScorableDialog\RepeatChatScorable.cs" />
+    <Compile Include="Model\StatusResponseDialog.cs" />
     <Compile Include="Dialogs\ScorableDialog\StoreLastActivity.cs" />
     <Compile Include="Model\ChatResponseDialog.cs" />
     <Compile Include="Dialogs\ScorableDialog\MoreRescorable.cs" />

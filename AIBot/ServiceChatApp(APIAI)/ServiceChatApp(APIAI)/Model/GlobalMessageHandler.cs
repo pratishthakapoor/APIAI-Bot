@@ -29,7 +29,7 @@ namespace ServiceChatApp_APIAI_
                .InstancePerLifetimeScope();
 
             /**
-             * 
+             * Register the builder for raise ticket option scorable
              **/
 
             builder
@@ -38,13 +38,23 @@ namespace ServiceChatApp_APIAI_
                 .InstancePerLifetimeScope();
 
             /**
-             * 
+             * Register the builder for handling Repeat chat option scorable
              **/
 
             builder
                .Register(c => new RepeatChatScorable(c.Resolve<IDialogTask>()))
                .As<IScorable<IActivity, double>>()
                .InstancePerLifetimeScope();
+
+            /**
+             * Register the builder for handling check status scorable
+             **/
+
+            builder
+                .Register(c => new CheckStatusScorable(c.Resolve<IDialogTask>()))
+                .As<IScorable<IActivity, double>>()
+                .InstancePerLifetimeScope();
+
         }
     }
 }
