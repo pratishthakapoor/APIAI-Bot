@@ -162,6 +162,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\Logger.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
+    <Compile Include="Dialogs\ScorableDialog\CheckStatusScorable.cs" />
     <Compile Include="Dialogs\ScorableDialog\RepeatChatScorable.cs" />
     <Compile Include="Dialogs\ScorableDialog\StoreLastActivity.cs" />
     <Compile Include="Model\ChatResponseDialog.cs" />
