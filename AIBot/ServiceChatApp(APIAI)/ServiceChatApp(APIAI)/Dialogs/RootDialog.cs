@@ -229,7 +229,10 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 await context.PostAsync(menu_response);
                 context.Call(child: new TicketModel(), resume: ChildDialogcomplete);
             }
-            
+            else
+            {
+                await context.PostAsync(menu_response);
+            }
         }
 
         private async Task ChildDialogcomplete(IDialogContext context, IAwaitable<object> result)
