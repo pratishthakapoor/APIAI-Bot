@@ -19,6 +19,8 @@ namespace ServiceChatApp_APIAI_.Dialogs.ScorableDialog
 
             RootDialog root = new RootDialog();
             root.StatusResponse(context, response);
+
+            context.Done(this);
         }
     }
 }
