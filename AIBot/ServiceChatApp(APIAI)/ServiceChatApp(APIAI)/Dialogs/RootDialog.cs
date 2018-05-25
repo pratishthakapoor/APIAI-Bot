@@ -61,10 +61,10 @@ namespace ServiceChatApp_APIAI_.Dialogs
                    );
             }
 
-            else if(action_response.Contains("RaiseTicket-repeat"))
+            /*else if(action_response.Contains("RaiseTicket-repeat"))
             {
-                RepeatMessage();
-            }
+                RepeatMessage(response);
+            }*/
 
             else if(action_response.Contains("RaiseTicket-response"))
             {
@@ -94,10 +94,10 @@ namespace ServiceChatApp_APIAI_.Dialogs
             //context.Wait(MessageReceivedAsync);
         }
 
-        private void RepeatMessage()
+        /*private async void RepeatMessage(string response)
         {
-            
-        }
+            await context.PostAsync(response);
+        }*/
 
         internal void MenuOption(IDialogContext context)
         {
@@ -203,8 +203,10 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 await context.PostAsync(replyMessage);
             }
 
-            else
+            else if (statusDetail == "8")
                 await context.PostAsync("Our team cancelled your ticket");
+            else
+                await context.PostAsync("Please check the ticket details. There is some mistake");
         }
 
         private async Task MenuOptionDialog(IDialogContext context, IAwaitable<string> result)

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.Bot.Builder.Autofac.Base;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Builder.Scorables;
 using Microsoft.Bot.Connector;
@@ -36,6 +37,14 @@ namespace ServiceChatApp_APIAI_
                 .As<IScorable<IActivity, double>>()
                 .InstancePerLifetimeScope();
 
+            /**
+             * 
+             **/
+
+            builder
+               .Register(c => new RepeatChatScorable(c.Resolve<IDialogTask>()))
+               .As<IScorable<IActivity, double>>()
+               .InstancePerLifetimeScope();
         }
     }
 }

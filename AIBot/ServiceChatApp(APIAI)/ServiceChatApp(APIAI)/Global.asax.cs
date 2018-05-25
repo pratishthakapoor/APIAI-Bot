@@ -7,6 +7,8 @@ using Microsoft.Bot.Connector;
 using System.Reflection;
 using System;
 using Microsoft.Bot.Builder.Internals.Fibers;
+using Microsoft.Bot.Builder.Autofac.Base;
+using ServiceChatApp_APIAI_.Dialogs.ScorableDialog;
 
 namespace ServiceChatApp_APIAI_
 {
@@ -23,6 +25,21 @@ namespace ServiceChatApp_APIAI_
 
                 builder.RegisterModule(new ReflectionSurrogateModule());
                 builder.RegisterModule<GlobalMessageHandler>();
+
+                builder
+                .RegisterKeyedType<StoreLastActivity, IBotToUser>()
+                .InstancePerLifetimeScope();
+
+                builder
+                   .RegisterAdapterChain<IBotToUser>
+                   (
+                      typeof(AlwaysSendDirect_BotToUser),
+                      typeof(AutoInputHint_BotToUser),
+                      typeof(MapToChannelData_BotToUser),
+                      typeof(StoreLastActivity),
+                      typeof(LogBotToUser)
+                   )
+                   .InstancePerLifetimeScope();
 
                 // Bot Storage: Here we register the state storage for your bot. 
                 // Default store: volatile in-memory store - Only for prototyping!
