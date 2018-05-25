@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
@@ -51,9 +52,9 @@ namespace ServiceChatApp_APIAI_
             var res = await Description;
             description = res;
             var key_phrases_extracted = await KeyPhraseAnalytics.ExtractPhraseAsync(description);
-            if (key_phrases_extracted.Contains("server") || key_phrases_extracted.Contains("database"))
+            if (key_phrases_extracted.Contains("server") || key_phrases_extracted.Contains("database") || Regex.IsMatch(description, @"\bserver\b") || Regex.IsMatch(description, @"\bdatabase\b"))
             {
-                if (key_phrases_extracted.Contains("server"))
+                if (key_phrases_extracted.Contains("server") || Regex.IsMatch(description, @"\bserver\b"))
                 { 
                     //Console.WriteLine(key_phrases_extracted);
                     PromptDialog.Text(
@@ -65,7 +66,7 @@ namespace ServiceChatApp_APIAI_
 
                 }
 
-                else if (key_phrases_extracted.Contains("database"))
+                else if (key_phrases_extracted.Contains("database") || Regex.IsMatch(description, @"\bdatabase\b"))
                 {
                     PromptDialog.Text(
                     context,
