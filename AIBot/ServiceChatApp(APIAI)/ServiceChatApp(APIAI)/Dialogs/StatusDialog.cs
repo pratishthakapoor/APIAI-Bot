@@ -33,7 +33,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 Attachment attachment = HeroCardDetails.GetReplyMessage(Notesresult, incidentTokenNumber, status);
                 replyMessage.Attachments = new List<Attachment> { attachment };
                 await context.PostAsync(replyMessage);
-
+                context.Done(this);
             }
 
             else if (statusDetails == "2")
@@ -45,14 +45,14 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 Attachment attachment = HeroCardDetails.GetReplyMessage(Notesresult, incidentTokenNumber, status);
                 replyMessage.Attachments = new List<Attachment> { attachment };
                 await context.PostAsync(replyMessage);
+                context.Done(this);
 
             }
 
             else if (statusDetails == "3")
             {
                 await context.PostAsync("Your ticket is been kept on hold.");
-
-
+                context.Done(this);
             }
 
             else if (statusDetails == "6")
@@ -68,6 +68,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 Attachment attachment = HeroCardDetails.GetReplyMessage(resolveDetails, incidentTokenNumber, status);
                 replyMessage.Attachments = new List<Attachment> { attachment };
                 await context.PostAsync(replyMessage);
+                context.Done(this);
             }
 
 
@@ -85,19 +86,25 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 replyMessage.Attachments = new List<Attachment> { attachment };
                 //await context.PostAsync("Reasons for closing the ticket: " + resolveDetails);
                 await context.PostAsync(replyMessage);
+                context.Done(this);
             }
 
             else if (statusDetails == "8")
             {
                 await context.PostAsync("Our team cancelled your ticket");
+                context.Done(this);
             }
 
             else
             {
                 await context.PostAsync("Please check the ticket details. There is some mistake");
-            }
 
-            context.Done(this);
+                await context.PostAsync("Please provide correct incident ticket detail");
+
+                RootDialog dialog = new RootDialog();
+                await dialog.StartAsync(context);
+                //await StartAsync(context);
+            }
         }
     }
 }

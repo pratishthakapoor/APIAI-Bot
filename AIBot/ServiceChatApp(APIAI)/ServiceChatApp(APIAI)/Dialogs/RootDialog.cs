@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ApiAiSDK;
 using Microsoft.Bot.Builder.Dialogs;
@@ -51,7 +52,11 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             await context.PostAsync(response);
 
-            if(action_response.Contains("RaiseTicket-next"))
+            if(action_response.Contains("input.next"))
+            {
+                await context.PostAsync("\n" + ResponseMessage.HelpMessage);
+            }
+            /*if(action_response.Contains("RaiseTicket-next"))
             {
                 //NextCall(context);
                 PromptDialog.Confirm(
@@ -62,7 +67,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                    );
             }
             
-            /*else if(action_response.Contains("CheckStatus-next"))
+            else if(action_response.Contains("CheckStatus-next"))
             {
                 PromptDialog.Confirm(
                   context,
@@ -88,11 +93,18 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             else if(action_response.Contains("input.checkstatus"))
             {
-                PromptDialog.Text(
+                if (Regex.IsMatch(activity.Text, @"INC"))
+                {
+                    context.Call(new StatusDialog(activity.Text), ChildDialogcomplete);
+                }
+                else
+                {
+                    PromptDialog.Text(
                     context,
                     resume: DisplayTicketStatus,
                     prompt: "Provide a response",
                     retry: retry_response);
+                }
             }
 
             else if(action_response.Contains("smalltalk.agent.can_you_help"))
@@ -113,9 +125,14 @@ namespace ServiceChatApp_APIAI_.Dialogs
         private async Task NextCall(IDialogContext context, IAwaitable<bool> result)
         {
             var confirmation = await result;
-            if(confirmation.ToString() == "yes")
+            if(confirmation == true)
             {
                 context.Call(new TicketModel(), ChildDialogcomplete);
+            }
+
+            else
+            {
+                await context.PostAsync("I am this much to offer you today. See you later");
             }
         }
 
@@ -146,7 +163,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
         private async Task ResponseOption(IDialogContext context, IAwaitable<bool> result)
         {
             var confirmation = await result;
-            if (confirmation.ToString() == "yes")
+            if (confirmation == true)
             {
                 PromptDialog.Text(
                     context,
@@ -157,7 +174,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             else
             {
-                await context.PostAsync("I am done for today");
+                await context.PostAsync("I am this much to offer you today. See you later");
             }
         }
 
@@ -167,6 +184,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             context.Call(new StatusDialog(incidentTokenNumber), ChildDialogcomplete);
 
+            //context.Done(this);
         }
 
         private async Task MenuOptionDialog(IDialogContext context, IAwaitable<string> result)
@@ -175,16 +193,25 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             string menu_response = API_AI_Logger.API_Response(res);
             string intent_response = API_AI_Logger.API_Connection_Action(res);
-
             if(intent_response.Contains("input.checkstatus"))
             {
                 StatusResponse(context, menu_response);
-                
+
             }
             else if(intent_response.Contains("input.raise_ticket_response"))
             {
                 await context.PostAsync(menu_response);
                 context.Call(child: new TicketModel(), resume: ChildDialogcomplete);
+
+                if(intent_response.Contains("RaiseTicket-next"))
+                {
+                    PromptDialog.Confirm(
+                    context,
+                    resume: ResponseOption,
+                     prompt: "Do you wish to check that out",
+                     retry: retry_response
+                    );
+                }
             }
             else
             {
