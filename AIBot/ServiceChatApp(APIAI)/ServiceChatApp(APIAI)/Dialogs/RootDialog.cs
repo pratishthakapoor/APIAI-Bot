@@ -112,13 +112,15 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 await context.PostAsync(response + "\n" + ResponseMessage.HelpMessage);
             }
 
+            else if(Regex.IsMatch(action_response, "smalltalk.agent\b"))
+            {
+                await context.PostAsync("");
+            }
+
             else
             {
-                MenuOption(context);
-                
+                MenuOption(context);  
             }
-            
-
             //context.Wait(MessageReceivedAsync);
         }
 
@@ -183,6 +185,8 @@ namespace ServiceChatApp_APIAI_.Dialogs
             var incidentTokenNumber = await result;
 
             context.Call(new StatusDialog(incidentTokenNumber), ChildDialogcomplete);
+
+            //context.Wait(MessageReceivedAsync);
 
             //context.Done(this);
         }
