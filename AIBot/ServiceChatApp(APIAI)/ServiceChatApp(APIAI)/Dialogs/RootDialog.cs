@@ -207,6 +207,8 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 await context.PostAsync("Our team cancelled your ticket");
             else
                 await context.PostAsync("Please check the ticket details. There is some mistake");
+
+            context.Done(this);
         }
 
         private async Task MenuOptionDialog(IDialogContext context, IAwaitable<string> result)
