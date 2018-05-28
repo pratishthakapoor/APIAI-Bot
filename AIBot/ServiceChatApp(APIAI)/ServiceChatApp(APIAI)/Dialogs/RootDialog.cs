@@ -52,11 +52,11 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             await context.PostAsync(response);
 
-            if(action_response.Contains("input.next"))
+            /*if(action_response.Contains("input.next"))
             {
                 await context.PostAsync("\n" + ResponseMessage.HelpMessage);
-            }
-            /*if(action_response.Contains("RaiseTicket-next"))
+            }*/
+            if(action_response.Contains("RaiseTicket-next"))
             {
                 //NextCall(context);
                 PromptDialog.Confirm(
@@ -75,7 +75,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                   prompt: "Do you wish to check that out",
                   retry: retry_response
                   );
-            }*/
+            }
 
             /*else if(action_response.Contains("RaiseTicket-repeat"))
             {
