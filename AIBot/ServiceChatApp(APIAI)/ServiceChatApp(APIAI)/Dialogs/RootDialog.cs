@@ -186,9 +186,18 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             context.Call(new StatusDialog(incidentTokenNumber), ChildDialogcomplete);
 
-            //context.Wait(MessageReceivedAsync);
+            PromptDialog.Text(
+                context,
+                resume: OnMethodCall,
+                prompt: "",
+                retry: "Please try again");
 
             //context.Done(this);
+        }
+
+        private async Task OnMethodCall(IDialogContext context, IAwaitable<string> result)
+        {
+            var res = result as Activity;
         }
 
         private async Task MenuOptionDialog(IDialogContext context, IAwaitable<string> result)
