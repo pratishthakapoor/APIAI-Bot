@@ -178,6 +178,8 @@ namespace ServiceChatApp_APIAI_.Dialogs
             {
                 await context.PostAsync("I am this much to offer you today. See you later");
             }
+
+            context.Done(this);
         }
 
         private async Task DisplayTicketStatus(IDialogContext context, IAwaitable<string> result)
