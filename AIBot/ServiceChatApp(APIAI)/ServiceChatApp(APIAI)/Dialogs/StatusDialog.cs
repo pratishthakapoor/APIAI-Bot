@@ -113,6 +113,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 resume: MessageRecievedAsync,
                 prompt: "The above shows a detail description of the requested ticket",
                 retry: "Please try again later");
+            //context.Done(this);
         }
 
         private async Task MessageRecievedAsync(IDialogContext context, IAwaitable<object> result)
@@ -123,7 +124,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             string status_response = API_AI_Logger.API_Response(response.ToString());
 
-            await context.PostAsync("If you have any issue then i can take you  to the raise ticket option");
+           await context.PostAsync("If you have any issue then i can take you  to the raise ticket option");
 
             PromptDialog.Confirm(
                 context,

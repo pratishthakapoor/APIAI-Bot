@@ -112,9 +112,9 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 await context.PostAsync(response + "\n" + ResponseMessage.HelpMessage);
             }
 
-            else if(Regex.IsMatch(action_response, "smalltalk.agent\b"))
+            else if(Regex.IsMatch(action_response, "smalltalk\b"))
             {
-                await context.PostAsync("");
+                await context.PostAsync("bye");
             }
 
             else
@@ -177,9 +177,10 @@ namespace ServiceChatApp_APIAI_.Dialogs
             else
             {
                 await context.PostAsync("I am this much to offer you today. See you later");
+                context.Done(this);
             }
 
-            context.Done(this);
+            //context.Done(this);
         }
 
         private async Task DisplayTicketStatus(IDialogContext context, IAwaitable<string> result)
