@@ -91,7 +91,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                     retry: retry_response);
             }
 
-            else if(action_response.Contains("input.checkstatus") | action_response.Contains("CheckStatus-custom"))
+            else if(action_response.Contains("input.checkstatus") || action_response.Contains("CheckStatus-custom"))
             {
                 if (Regex.IsMatch(activity.Text, @"INC"))
                 {
