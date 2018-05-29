@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
@@ -33,7 +34,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 Attachment attachment = HeroCardDetails.GetReplyMessage(Notesresult, incidentTokenNumber, status);
                 replyMessage.Attachments = new List<Attachment> { attachment };
                 await context.PostAsync(replyMessage);
-                context.Done(this);
+                //context.Done(this);
             }
 
             else if (statusDetails == "2")
@@ -45,14 +46,14 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 Attachment attachment = HeroCardDetails.GetReplyMessage(Notesresult, incidentTokenNumber, status);
                 replyMessage.Attachments = new List<Attachment> { attachment };
                 await context.PostAsync(replyMessage);
-                context.Done(this);
+               // context.Done(this);
 
             }
 
             else if (statusDetails == "3")
             {
                 await context.PostAsync("Your ticket is been kept on hold.");
-                context.Done(this);
+                //context.Done(this);
             }
 
             else if (statusDetails == "6")
@@ -68,7 +69,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 Attachment attachment = HeroCardDetails.GetReplyMessage(resolveDetails, incidentTokenNumber, status);
                 replyMessage.Attachments = new List<Attachment> { attachment };
                 await context.PostAsync(replyMessage);
-                context.Done(this);
+                //context.Done(this);
             }
 
 
@@ -86,13 +87,13 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 replyMessage.Attachments = new List<Attachment> { attachment };
                 //await context.PostAsync("Reasons for closing the ticket: " + resolveDetails);
                 await context.PostAsync(replyMessage);
-                context.Done(this);
+                //context.Done(this);
             }
 
             else if (statusDetails == "8")
             {
                 await context.PostAsync("Our team cancelled your ticket");
-                context.Done(this);
+                //context.Done(this);
             }
 
             else
@@ -105,6 +106,51 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 await dialog.StartAsync(context);
                 //await StartAsync(context);
             }
+
+            //context.Wait(MessageRecievedAsync);
+            PromptDialog.Text(
+                context,
+                resume: MessageRecievedAsync,
+                prompt: "The above shows a detail description of the requested ticket",
+                retry: "Please try again later");
+        }
+
+        private async Task MessageRecievedAsync(IDialogContext context, IAwaitable<object> result)
+        {
+            var response = await result;
+
+            string status_action = API_AI_Logger.API_Connection_Action(response.ToString());
+
+            string status_response = API_AI_Logger.API_Response(response.ToString());
+
+            await context.PostAsync("If you have any issue then i can take you  to the raise ticket option");
+
+            PromptDialog.Confirm(
+                context,
+                resume: NextCall,
+                prompt: "Do you wish to check that out",
+                retry: "Please try again later"
+                );
+
+        }
+
+        private async Task NextCall(IDialogContext context, IAwaitable<bool> result)
+        {
+            var confirmation = await result;
+            if (confirmation == true)
+            {
+                context.Call(new TicketModel(), ChildDialogcomplete);
+            }
+
+            else
+            {
+                await context.PostAsync("I am this much to offer you today. See you later");
+            }
+        }
+
+        private async Task ChildDialogcomplete(IDialogContext context, IAwaitable<object> result)
+        {
+            context.Done(this);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                    );
             }
             
-            else if(action_response.Contains("CheckStatus-next"))
+            /*else if(action_response.Contains("CheckStatus-next"))
             {
                 PromptDialog.Confirm(
                   context,
@@ -75,7 +75,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
                   prompt: "Do you wish to check that out",
                   retry: retry_response
                   );
-            }
+            }*/
 
             /*else if(action_response.Contains("RaiseTicket-repeat"))
             {
@@ -124,7 +124,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
             //context.Wait(MessageReceivedAsync);
         }
 
-        private async Task NextCall(IDialogContext context, IAwaitable<bool> result)
+        /*private async Task NextCall(IDialogContext context, IAwaitable<bool> result)
         {
             var confirmation = await result;
             if(confirmation == true)
@@ -136,7 +136,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
             {
                 await context.PostAsync("I am this much to offer you today. See you later");
             }
-        }
+        }*/
 
         /*private async void RepeatMessage(string response)
         {
@@ -186,18 +186,6 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             context.Call(new StatusDialog(incidentTokenNumber), ChildDialogcomplete);
 
-            PromptDialog.Text(
-                context,
-                resume: OnMethodCall,
-                prompt: "",
-                retry: "Please try again");
-
-            //context.Done(this);
-        }
-
-        private async Task OnMethodCall(IDialogContext context, IAwaitable<string> result)
-        {
-            var res = result as Activity;
         }
 
         private async Task MenuOptionDialog(IDialogContext context, IAwaitable<string> result)
