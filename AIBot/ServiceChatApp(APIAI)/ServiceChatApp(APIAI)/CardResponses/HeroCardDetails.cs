@@ -19,7 +19,7 @@ namespace ServiceChatApp_APIAI_
                 // subtitle for the card
                 Subtitle = status,
                 //Detail text
-                Text = "Latest work carried out on your raised ticket includes:\n \n" + notesresult,
+                Text = "Latest work carried out on your raised ticket includes: " + "\n" + notesresult,
                 //in case for other channel use
                 /**
                  * Text = "Latest work carried out on your raised ticket includes:\n\n" + notesresult, ex : Text = "More words <br> New line <br> New line <b><font color = \"#11b92f\>GREEN</font></b></br></br>
