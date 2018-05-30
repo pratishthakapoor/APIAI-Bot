@@ -131,7 +131,8 @@ namespace ServiceChatApp_APIAI_.Dialogs
                 //context.Done(this);
             }
 
-            else if(status_action.Contains("CheckStatus-next"))
+            //else if(status_action.Contains("CheckStatus-next"))
+            else
             {
                 await context.PostAsync("If you have any issue then i can take you  to the raise ticket option");
 
