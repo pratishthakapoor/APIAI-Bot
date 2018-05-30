@@ -155,7 +155,7 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             else
             {
-                await context.PostAsync("I am this much to offer you today. See you later");
+                await context.PostAsync("I have this much to offer you today. See you later");
             }
         }
 
