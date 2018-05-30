@@ -26,7 +26,7 @@
         public static object ServiceNowAssignmentGroup = "Service Desk";
         public static object ServiceNowIncidentImpact = "2";
         public static object ServiceNowIncidentPriority = "2";
-        public static object ServiceNowCallerId = "webservice";
+        public static object ServiceNowCallerId = "SysAdminUser";
         public static object ServiceNowCatalogueName = "My bot application";
         public static object ServiceNowComments = "Incident created"; 
     }
