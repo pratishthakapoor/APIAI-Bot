@@ -124,14 +124,24 @@ namespace ServiceChatApp_APIAI_.Dialogs
 
             string status_response = API_AI_Logger.API_Response(response.ToString());
 
-           await context.PostAsync("If you have any issue then i can take you  to the raise ticket option");
+            if (status_action.Contains("CheckStatus-custom"))
+            {
+                StatusDialog statusDialog = new StatusDialog(response.ToString());
+                await statusDialog.StartAsync(context);
+                //context.Done(this);
+            }
 
-            PromptDialog.Confirm(
-                context,
-                resume: NextCall,
-                prompt: "Do you wish to check that out",
-                retry: "Please try again later"
-                );
+            else
+            {
+                await context.PostAsync("If you have any issue then i can take you  to the raise ticket option");
+
+                PromptDialog.Confirm(
+                    context,
+                    resume: NextCall,
+                    prompt: "Do you wish to check that out",
+                    retry: "Please try again later"
+                    );
+            }
 
         }
 
